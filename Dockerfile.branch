@@ -1,0 +1,10 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+COPY Directory.Build.props Directory.Packages.props global.json nuget.config ./
+COPY src/OfflineSync.BranchClient/ src/OfflineSync.BranchClient/
+RUN dotnet publish src/OfflineSync.BranchClient/OfflineSync.BranchClient.csproj -c Release -o /app/publish /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/runtime:10.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "OfflineSync.BranchClient.dll"]

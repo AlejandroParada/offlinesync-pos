@@ -1,0 +1,46 @@
+@host = http://localhost:5080
+
+### Salud
+GET {{host}}/health
+
+### Venta que deja el alcohol en gel por debajo de cero
+POST {{host}}/sync/sales
+Content-Type: application/json
+
+{
+  "sales": [
+    {
+      "idempotencyKey": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2",
+      "branchId": "pocitos",
+      "occurredAt": "2026-11-01T15:00:00Z",
+      "lines": [
+        {
+          "productId": "33333333-3333-3333-3333-333333333333",
+          "quantity": 3,
+          "unitPrice": 190
+        }
+      ]
+    }
+  ]
+}
+
+### La misma clave: status duplicate y el stock no se vuelve a mover
+POST {{host}}/sync/sales
+Content-Type: application/json
+
+{
+  "sales": [
+    {
+      "idempotencyKey": "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaa2",
+      "branchId": "pocitos",
+      "occurredAt": "2026-11-01T15:00:00Z",
+      "lines": [
+        {
+          "productId": "33333333-3333-3333-3333-333333333333",
+          "quantity": 3,
+          "unitPrice": 190
+        }
+      ]
+    }
+  ]
+}

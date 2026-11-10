@@ -1,0 +1,5 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\OfflineSync.Domain\OfflineSync.Domain.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,12 @@
+.git
+.github
+**/.vs
+**/.idea
+**/bin
+**/obj
+**/TestResults
+**/*.user
+**/*.db
+**/*.md
+tests
+docs
